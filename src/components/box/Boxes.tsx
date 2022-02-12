@@ -1,49 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { MouseEventHandler, useEffect, useMemo } from 'react';
 import Box from './Box';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-interface BoxesProps {
+interface IBoxesProps {
   stage: number;
+  boxes: Array<{
+    id: number;
+    box: {
+      color: {
+        r: number;
+        g: number;
+        b: number;
+      };
+      isCorrect: boolean;
+      onClick: MouseEventHandler<HTMLDivElement>;
+    };
+  }>;
 }
 
-const Boxes = ({ stage }: BoxesProps) => {
-  useEffect(() => {
-    console.log(Math.round((stage + 0.5) / 2) + 1);
-    console.log(Math.pow(Math.round((stage + 0.5) / 2) + 1, 2));
-  }, [stage]);
-
+const Boxes = ({ stage, boxes }: IBoxesProps) => {
   return (
-    <Container>
-      {[
-        {
-          id: 0,
-        },
-        {
-          id: 1,
-        },
-        {
-          id: 2,
-        },
-        {
-          id: 3,
-        },
-        {
-          id: 4,
-        },
-        {
-          id: 5,
-        },
-        {
-          id: 6,
-        },
-        {
-          id: 7,
-        },
-        {
-          id: 8,
-        },
-      ].map((box) => (
-        <Box key={box.id} />
+    <Container rowCnt={Math.round((stage + 0.5) / 2) + 1}>
+      {boxes.map((box) => (
+        <Box key={box.id} box={box.box} />
       ))}
     </Container>
   );
@@ -51,11 +30,15 @@ const Boxes = ({ stage }: BoxesProps) => {
 
 export default Boxes;
 
-const Container = styled.div`
+const Container = styled.div<{ rowCnt: number }>`
   width: 360px;
   height: 360px;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: ${({ rowCnt }) => css`
+     repeat(${rowCnt}, 1fr); 
+  `};
+  grid-template-columns: ${({ rowCnt }) => css`
+     repeat(${rowCnt}, 1fr);
+  `};
   gap: 2px;
 `;
