@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import "./App.css";
-import Boxes from "./components/box/Boxes";
-import styled from "styled-components";
-import useTimer from "./hooks/useTimer";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import './App.css';
+import Boxes from './components/box/Boxes';
+import styled from 'styled-components';
+import useTimer from './hooks/useTimer';
 
 function App() {
   const { remainingTime, resetTime, decreaseTime } = useTimer({});
@@ -65,6 +65,7 @@ function App() {
       tempBoxes.push(boxObj);
     }
     return tempBoxes;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage, resetTime]);
 
   useEffect(() => {
