@@ -1,6 +1,6 @@
-import React, { MouseEventHandler, useEffect, useMemo } from 'react';
-import Box from './Box';
-import styled, { css } from 'styled-components';
+import React, { MouseEventHandler } from "react";
+import Box from "./Box";
+import styled, { css } from "styled-components";
 
 interface IBoxesProps {
   stage: number;
@@ -28,7 +28,7 @@ const Boxes = ({ stage, boxes }: IBoxesProps) => {
   );
 };
 
-export default Boxes;
+export default React.memo(Boxes);
 
 const Container = styled.div<{ rowCnt: number }>`
   width: 360px;

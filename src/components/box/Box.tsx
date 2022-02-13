@@ -1,5 +1,5 @@
-import React, { MouseEventHandler } from 'react';
-import styled, { css } from 'styled-components';
+import React, { MouseEventHandler } from "react";
+import styled, { css } from "styled-components";
 
 interface IBoxProps {
   box: {
@@ -25,7 +25,7 @@ const Box = ({ box }: IBoxProps) => {
   );
 };
 
-export default Box;
+export default React.memo(Box);
 
 const Container = styled.div<{
   isCorrect: boolean;
