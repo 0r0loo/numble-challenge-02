@@ -41,18 +41,18 @@ function App() {
         },
       };
       if (i === correct) {
-        boxObj.box.color.r += 50 - stage;
-        boxObj.box.color.g += 50 - stage;
-        boxObj.box.color.b += 50 - stage;
+        boxObj.box.color.r += 51 - stage;
+        boxObj.box.color.g += 51 - stage;
+        boxObj.box.color.b += 51 - stage;
 
         if (boxObj.box.color.r > 255) {
-          boxObj.box.color.r -= (50 - stage) * 2;
+          boxObj.box.color.r -= (51 - stage) * 2;
         }
         if (boxObj.box.color.g > 255) {
-          boxObj.box.color.g -= (50 - stage) * 2;
+          boxObj.box.color.g -= (51 - stage) * 2;
         }
         if (boxObj.box.color.b > 255) {
-          boxObj.box.color.b -= (50 - stage) * 2;
+          boxObj.box.color.b -= (51 - stage) * 2;
         }
 
         boxObj.box.isCorrect = true;
