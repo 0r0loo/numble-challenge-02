@@ -17,8 +17,13 @@ const useTimer = ({ basicTime = 15, intervalSec = 1, decreasingTime = 1 }) => {
     return () => clearInterval(intervalId);
   }, [intervalSec, decreasingTime, getRemainingTime]);
 
+  const resetTime = useCallback(() => {
+    setRemainingTime(basicTime);
+  }, [basicTime]);
+
   return {
     remainingTime,
+    resetTime,
   };
 };
 

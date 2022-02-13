@@ -1,26 +1,37 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
 import Boxes from './components/box/Boxes';
 import styled from 'styled-components';
 import useTimer from './hooks/useTimer';
 
 function App() {
-  const { remainingTime } = useTimer({});
+  const { remainingTime, resetTime } = useTimer({});
   const [stage, setStage] = useState(1);
   const [score, setScore] = useState(0);
+
+  const getRGB = useCallback((stage: number): Array<number> => {
+    const getRandomValue = () => Math.ceil(Math.random() * 255);
+    // const r = getRandomValue() + stage > 255?   : ;
+    const g = getRandomValue();
+    const b = getRandomValue();
+    return [r, g, b];
+  }, []);
 
   const boxes = useMemo(() => {
     const boxCnt = Math.pow(Math.round((stage + 0.5) / 2) + 1, 2);
     const correct = Math.ceil(Math.random() * boxCnt);
     const tempBoxes = [];
+
+    const [r, g, b] = getRGB(stage);
+
     for (let i = 0; i < boxCnt; i++) {
       const boxObj = {
         id: i,
         box: {
           color: {
-            r: 255,
-            g: 212,
-            b: 120,
+            r,
+            g,
+            b,
           },
           isCorrect: false,
           onClick: () => {
@@ -29,24 +40,32 @@ function App() {
         },
       };
       if (i === correct) {
+        // boxObj.box.color.r += 50 - stage;
+        // boxObj.box.color.g += 50 - stage;
+        // boxObj.box.color.b += 50 - stage;
+
         boxObj.box.isCorrect = true;
         boxObj.box.onClick = () => {
           console.log('정답');
+          setScore((prev) => prev + stage * remainingTime);
+          setStage((prev) => prev + 1);
+          resetTime();
         };
       }
       tempBoxes.push(boxObj);
       // console.log(tempBoxes);
     }
     return tempBoxes;
-  }, [stage]);
+  }, [stage, resetTime]);
 
   useEffect(() => {
     if (remainingTime <= 0) {
-      // alert(`GAME OVER!\n스테이지: ${stage}, 점수: ${score}`);
+      alert(`GAME OVER!\n스테이지: ${stage}, 점수: ${score}`);
       setStage(1);
       setScore(0);
+      resetTime();
     }
-  }, [remainingTime, stage, score]);
+  }, [remainingTime, stage, score, resetTime]);
 
   return (
     <Container>
